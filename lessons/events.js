@@ -11,6 +11,7 @@ const callback =  (data, second, third) => {
 };
 
 emitter.on('message', callback);
+//emitter.onсe('message', callback);
 
 const MESSAGE = process.env.message || '';
 
