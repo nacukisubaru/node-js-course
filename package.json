@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "cross-env PORT=5000 NODE_ENV=prod node ./lessons/proccess.js"
+    "test": "node ./lessons/proccess.js"
   },
   "repository": {
     "type": "git",
