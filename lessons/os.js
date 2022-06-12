@@ -13,6 +13,10 @@ if(cluster.isPrimary) {
     for(let i = 0; i < cpus.length -2; i++) {
         cluster.fork()
     }
+    cluster.on('exit', (worker) => {
+        console.log(`Воркер с pid = ${worker.process.pid} умер`);
+        cluster.fork();
+    })
 } else {
     console.log(`Воркер с pid = ${process.pid} запущен`);
     
