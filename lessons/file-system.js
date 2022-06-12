@@ -66,6 +66,18 @@ const readFileAsync = async (path) => {
     }))
 }
 
+const removeFileAsync = async (path) => {
+    return new Promise((resolve, reject) => fs.rm(path, (err, data) => {
+        if(err) {
+            return reject(err.message);
+        }
+        resolve(data);
+    }))
+}
+
+removeFileAsync(path.resolve(__dirname, 'test.txt'))
+    .then(() => console.log('file was removed'))
+
 writeFileAsync(path.resolve(__dirname, 'test.txt'), 'fdsfsdfds')
     .then(() => appendFileAsync(path.resolve(__dirname, 'test.txt'), '6556'))
     .then(() => appendFileAsync(path.resolve(__dirname, 'test.txt'), '6556'))
@@ -74,4 +86,3 @@ writeFileAsync(path.resolve(__dirname, 'test.txt'), 'fdsfsdfds')
     .then(() => readFileAsync(path.resolve(__dirname, 'test.txt')))
     .then(data => console.log(data))
     .catch(err => console.log(err))
-
