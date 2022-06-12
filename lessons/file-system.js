@@ -11,3 +11,10 @@ const path = require('path');
 //     }
 //     console.log('Папка создана');
 // });
+
+//удлаение папки
+fs.rmdir(path.resolve(__dirname, 'dir'), (err) => {
+    if(err) {
+        throw err;
+    }
+})
