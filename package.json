@@ -1,0 +1,26 @@
+{
+  "name": "node-js-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "cross-env PORT=5000 NODE_ENV=prod node ./lessons/proccess.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nacukisubaru/node-js-course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nacukisubaru/node-js-course/issues"
+  },
+  "homepage": "https://github.com/nacukisubaru/node-js-course#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
