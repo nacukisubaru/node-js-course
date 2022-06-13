@@ -2,9 +2,9 @@
   "name": "node-js-course",
   "version": "1.0.0",
   "description": "",
-  "main": "test.js",
+  "main": "index.js",
   "scripts": {
-    "test": "node ./lessons/proccess.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
