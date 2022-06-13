@@ -17,7 +17,7 @@ module.exports = class Router {
         }
 
         endpoint[method] = handler;
-        console.log(this.endpoints);
+        //console.log(this.endpoints);
     }
 
     //обертки для запроса

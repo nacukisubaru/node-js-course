@@ -11,7 +11,7 @@ module.exports = class Application {
     }
     
     use(middleware) {
-        console.log( this.middlewares);
+        //console.log( this.middlewares);
         this.middlewares.push(middleware);
     }
 
@@ -22,14 +22,36 @@ module.exports = class Application {
     
     _createServer() {
         return http.createServer((req, res) => {
-            //создаем событие и передаем маску в маске url и method получаем из заголовков
-            //также передаем req res
-            const emitted = this.emitter.emit(this._getRouteMask(req.url, req.method), req, res);
-            //проверка существует ли запрос/ существует ли событие
-            if(!emitted) {
-                //закрытие стрима
-                res.end();
-            }
+            let body = "";
+
+            //событие чтения тела запроса
+            req.on('data', (chunk) => {
+                //запись по кусочкам
+                body += chunk;
+                console.log(chunk);
+            });
+
+            //событие окончания чтения тела запроса
+            req.on('end', () => {
+                //если что то записало, то добавляем body для request
+                //предварительно распарсив его
+                if(body) {
+                    try {
+                        req.body = JSON.parse(body);
+                    } catch (e) {
+                        throw new Error('json invalid');
+                    }
+                }
+
+                //создаем событие и передаем маску в маске url и method получаем из заголовков
+                //также передаем req res
+                const emitted = this.emitter.emit(this._getRouteMask(req.url, req.method), req, res);
+                //проверка существует ли запрос/ существует ли событие
+                if(!emitted) {
+                    //закрытие стрима
+                    res.end();
+                }
+            })
         });
     }
 
@@ -47,7 +69,6 @@ module.exports = class Application {
             Object.keys(endpoint).forEach((method) => {
                 this.emitter.on(this._getRouteMask(path, method), (req, res) => {
                     const handler = endpoint[method];
-                    console.log(this.middlewares);
                     //вызов middleware
                     //внутри middleware res мутирует ему добавлятся метод send
                     //в котором указываются заголовки и возвращается ответ функцией end

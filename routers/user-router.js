@@ -11,7 +11,12 @@ router.get('/users', (req, res) => {
 });
 
 router.post('/posts', (req, res) => {
-    res.send(users);
+    console.log(req.body);
+    //получаем тело запроса
+    const user = req.body;
+    //добавляем пользователя
+    users.push(user);
+    res.send(user);
 });
 
 module.exports = router;
