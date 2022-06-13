@@ -7,11 +7,11 @@ const users = [
 ];
 
 router.get('/users', (req, res) => {
-    res.end(JSON.stringify(users));
+    res.send(users);
 });
 
 router.post('/posts', (req, res) => {
-    res.end(JSON.stringify(users));
+    res.send(users);
 });
 
 module.exports = router;
