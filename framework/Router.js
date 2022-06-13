@@ -2,7 +2,9 @@ module.exports = class Router {
     constructor() {
         this.endpoints = {}
     }
-
+    //здесь мы задаем структуру endpoints
+    //для каждого ендпоинта будет установлен свой слушатель
+    //ендпоинт - конечная точка обращения ссылка по которой мы обращаемся
     request(method = "GET", path, handler) {
         if(!this.endpoints[path]) {
             this.endpoints[path] = {}
