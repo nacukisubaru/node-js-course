@@ -3,11 +3,13 @@ const PORT = process.env.PORT || 5000;
 const Application = require('./framework/Appliction');
 const userRouter = require('./routers/user-router');
 const jsonParser = require('./framework/parseJson');
+const parseUrl = require('./framework/parseUrl');
 
 //const router = new Router();
 const app = new Application();
 //middleware функция которая выставит заголовки и вернет ответ
 app.use(jsonParser);
+app.use(parseUrl('http://localhost:5000'));
 
 //передаем хендлер и путь
 //создаем слушатель пути /users где в обработчике возвращается сообщение

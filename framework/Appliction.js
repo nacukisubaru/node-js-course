@@ -28,7 +28,6 @@ module.exports = class Application {
             req.on('data', (chunk) => {
                 //запись по кусочкам
                 body += chunk;
-                console.log(chunk);
             });
 
             //событие окончания чтения тела запроса
@@ -43,6 +42,9 @@ module.exports = class Application {
                     }
                 }
 
+                //внутри middleware res мутирует ему добавлятся метод send
+                //в котором указываются заголовки и возвращается ответ функцией end
+                this.middlewares.forEach(middleware => middleware(req, res));
                 //создаем событие и передаем маску в маске url и method получаем из заголовков
                 //также передаем req res
                 const emitted = this.emitter.emit(this._getRouteMask(req.url, req.method), req, res);
@@ -69,10 +71,6 @@ module.exports = class Application {
             Object.keys(endpoint).forEach((method) => {
                 this.emitter.on(this._getRouteMask(path, method), (req, res) => {
                     const handler = endpoint[method];
-                    //вызов middleware
-                    //внутри middleware res мутирует ему добавлятся метод send
-                    //в котором указываются заголовки и возвращается ответ функцией end
-                    this.middlewares.forEach(middleware => middleware(req, res));
                     //в handler передается мутировавший res от которого вызовется send в user-router
                     handler(req, res);
                 });

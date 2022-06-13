@@ -7,6 +7,16 @@ const users = [
 ];
 
 router.get('/users', (req, res) => {
+    if(req.params.id) {
+        return res.send(users.find(user=> user.id == req.params.id));
+    }
+    res.send(users);
+});
+
+router.get('/users?id=1', (req, res) => {
+    if(req.params.id) {
+        return res.send(users.find(user=> user.id == req.params.id));
+    }
     res.send(users);
 });
 
